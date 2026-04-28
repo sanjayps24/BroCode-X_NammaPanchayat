@@ -93,7 +93,7 @@ export default function EducationPage() {
                 <ListenButton text="SSP Post Matric Scholarship 2026. Applications open for SC ST students. Deadline May 30." />
               </div>
               <p style={{ margin: '6px 0 0', fontSize: '0.85rem', color: 'var(--text-muted)' }}>
-                {lang === 'en' ? 'Applications open for SC/ST students.' : 'ಪರಿಶಿಷ್ಟ ಜಾತಿ/ಪಂಗಡ ವಿದ್ಯಾರ್ಥಿಗಳಿಗೆ ಅರ್ಜಿ ಮುಕ್ತ.'}
+                {lang === 'en' ? 'Applications open for SC/ST/OBC students.' : 'ಪರಿಶಿಷ್ಟ ಜಾತಿ/ಪಂಗಡ ವಿದ್ಯಾರ್ಥಿಗಳಿಗೆ ಅರ್ಜಿ ಮುಕ್ತ.'}
               </p>
             </div>
             <span style={{ background: 'rgba(211,47,47,0.1)', color: '#d32f2f', padding: '4px 12px', borderRadius: '20px', fontSize: '0.72rem', fontWeight: 700, whiteSpace: 'nowrap' }}>

@@ -108,7 +108,7 @@ export default function AdminComplaints() {
                     </span>
                     <div style={{ display: 'flex', gap: '12px' }}>
                       <a href={forwarded[t.id].url} target="_blank" rel="noopener noreferrer" style={{ fontSize: '0.75rem', color: 'var(--primary)', fontWeight: 600, textDecoration: 'underline' }}>
-                        Website 🔗
+                        Website link 🔗
                       </a>
                       <a href={`tel:${forwarded[t.id].phone}`} style={{ fontSize: '0.75rem', color: '#1976d2', fontWeight: 600, textDecoration: 'none' }}>
                         📞 {forwarded[t.id].phone}

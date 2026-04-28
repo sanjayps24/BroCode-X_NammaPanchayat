@@ -124,7 +124,7 @@ export default function GrievancePage() {
 
           <div style={{ width: '100%', position: 'relative' }}>
              <div style={{ position: 'absolute', left: '16px', top: '12px', zIndex: 10 }}>
-               <ListenButton text={complaintText} />
+               
              </div>
              <textarea 
               value={complaintText}
