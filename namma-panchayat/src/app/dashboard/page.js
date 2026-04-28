@@ -3,7 +3,7 @@ import React from 'react';
 import { useLanguage } from '@/context/LanguageContext';
 import { useAuth } from '@/context/AuthContext';
 import DashboardTile from '@/components/DashboardTile';
-import ListenButton from '@/components/ListenButton';
+
 
 export default function CitizenDashboard() {
   const { t, lang } = useLanguage();
@@ -72,7 +72,7 @@ export default function CitizenDashboard() {
         <h2 style={{ margin: 0, fontSize: '1.2rem', fontWeight: 700, color: 'var(--text-main)' }}>
           {lang === 'en' ? "What do you need today?" : "ಇಂದು ನಿಮಗೆ ಏನು ಬೇಕು?"}
         </h2>
-        <ListenButton text={lang === 'en' ? "What do you need today?" : "ಇಂದು ನಿಮಗೆ ಏನು ಬೇಕು?"} />
+
       </div>
 
       {/* Tiles */}

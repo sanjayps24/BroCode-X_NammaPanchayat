@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { useLanguage } from '@/context/LanguageContext';
 import { mockBills } from '@/lib/mockData';
-import ListenButton from '@/components/ListenButton';
+
 import Link from 'next/link';
 
 export default function UtilitiesPage() {
@@ -31,7 +31,7 @@ export default function UtilitiesPage() {
             <h1 style={{ margin: 0, fontSize: '1.6rem', fontWeight: 800 }}>{lang === 'en' ? 'Bill Pay' : 'ಬಿಲ್ ಪಾವತಿ'}</h1>
             <p style={{ margin: 0, color: 'var(--text-muted)', fontSize: '0.85rem' }}>{lang === 'en' ? 'Electricity & Water bills' : 'ವಿದ್ಯುತ್ ಮತ್ತು ನೀರಿನ ಬಿಲ್‌ಗಳು'}</p>
           </div>
-          <ListenButton text={lang === 'en' ? 'Bill Pay page. Pay your bills here.' : 'ಬಿಲ್ ಪಾವತಿ ಪುಟ. ನಿಮ್ಮ ಬಿಲ್‌ಗಳನ್ನು ಇಲ್ಲಿ ಪಾವತಿಸಿ.'} />
+
         </div>
       </header>
 
@@ -51,7 +51,7 @@ export default function UtilitiesPage() {
                     <div>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                         <h3 style={{ margin: 0, fontSize: '1.1rem', fontWeight: 700 }}>{bill.type[lang]}</h3>
-                        <ListenButton text={`${bill.type[lang]}. Amount due ${bill.amount} rupees.`} />
+
                       </div>
                       <p style={{ margin: '4px 0 0', fontSize: '0.8rem', color: 'var(--text-muted)' }}>
                         {lang === 'en' ? 'Account No:' : 'ಖಾತೆ ಸಂ:'} KEB-9823-4410

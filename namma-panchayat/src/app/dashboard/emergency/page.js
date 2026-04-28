@@ -1,7 +1,7 @@
 "use client";
 import React from 'react';
 import { useLanguage } from '@/context/LanguageContext';
-import ListenButton from '@/components/ListenButton';
+
 import Link from 'next/link';
 
 export default function EmergencyPage() {
@@ -25,7 +25,7 @@ export default function EmergencyPage() {
             <h1 style={{ margin: 0, fontSize: '1.6rem', fontWeight: 800 }}>{lang === 'en' ? 'Suraksha' : 'ಸುರಕ್ಷಾ'}</h1>
             <p style={{ margin: 0, color: 'var(--text-muted)', fontSize: '0.85rem' }}>{lang === 'en' ? 'One-touch emergency contacts' : 'ಒಂದೇ ಸ್ಪರ್ಶದ ತುರ್ತು ಸಂಪರ್ಕಗಳು'}</p>
           </div>
-          <ListenButton text={lang === 'en' ? 'Suraksha emergency contacts page.' : 'ಸುರಕ್ಷಾ ತುರ್ತು ಸಂಪರ್ಕ ಪುಟ.'} />
+
         </div>
       </header>
 
@@ -48,7 +48,7 @@ export default function EmergencyPage() {
             <div style={{ flex: 1 }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
                 <h3 style={{ margin: 0, fontSize: '1.05rem', fontWeight: 700 }}>{c.name[lang]}</h3>
-                <ListenButton text={`${c.name[lang]}. Call ${c.number}. ${c.desc[lang]}`} />
+
               </div>
               <p style={{ margin: 0, fontSize: '0.82rem', color: 'var(--text-muted)' }}>{c.desc[lang]}</p>
             </div>

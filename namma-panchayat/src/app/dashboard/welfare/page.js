@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { useLanguage } from '@/context/LanguageContext';
 import { mockSchemes } from '@/lib/mockData';
-import ListenButton from '@/components/ListenButton';
+
 import Link from 'next/link';
 
 export default function WelfarePage() {
@@ -26,7 +26,7 @@ export default function WelfarePage() {
             <h1 style={{ margin: 0, fontSize: '1.6rem', fontWeight: 800 }}>{lang === 'en' ? 'Govt Schemes' : 'ಸರ್ಕಾರಿ ಯೋಜನೆಗಳು'}</h1>
             <p style={{ margin: 0, color: 'var(--text-muted)', fontSize: '0.85rem' }}>{lang === 'en' ? 'Find schemes you are eligible for' : 'ನೀವು ಅರ್ಹರಾಗಿರುವ ಯೋಜನೆಗಳನ್ನು ಹುಡುಕಿ'}</p>
           </div>
-          <ListenButton text={lang === 'en' ? 'Government Schemes page.' : 'ಸರ್ಕಾರಿ ಯೋಜನೆಗಳ ಪುಟ.'} />
+
         </div>
       </header>
 
@@ -57,7 +57,7 @@ export default function WelfarePage() {
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '10px' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                   <h3 style={{ margin: 0, fontSize: '1.1rem', fontWeight: 800 }}>{scheme.name[lang]}</h3>
-                  <ListenButton text={`${scheme.name[lang]}. ${scheme.benefit[lang]}.`} />
+
                 </div>
                 {scheme.eligible && (
                   <span style={{ background: 'rgba(56,142,60,0.12)', color: '#388e3c', padding: '5px 14px', borderRadius: '20px', fontSize: '0.72rem', fontWeight: 700, flexShrink: 0 }}>

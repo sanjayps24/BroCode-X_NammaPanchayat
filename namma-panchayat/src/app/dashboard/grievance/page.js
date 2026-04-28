@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { useLanguage } from '@/context/LanguageContext';
 import { useAuth } from '@/context/AuthContext';
 import VoiceRecorder from '@/components/VoiceRecorder';
-import ListenButton from '@/components/ListenButton';
+
 import Link from 'next/link';
 
 export default function GrievancePage() {
@@ -79,7 +79,7 @@ export default function GrievancePage() {
             <h1 style={{ margin: 0, fontSize: '1.6rem', fontWeight: 800 }}>{t('dashboard.grievance')}</h1>
             <p style={{ margin: 0, color: 'var(--text-muted)', fontSize: '0.85rem' }}>{lang === 'en' ? "Your voice reaches the Panchayat" : "ನಿಮ್ಮ ಧ್ವನಿ ಪಂಚಾಯತ್ ತಲುಪುತ್ತದೆ"}</p>
           </div>
-          <ListenButton text={lang === 'en' ? "Voice Grievance. Record your complaint." : "ಧ್ವನಿ ದೂರು. ನಿಮ್ಮ ಸಮಸ್ಯೆಯನ್ನು ದಾಖಲಿಸಿ."} />
+
         </div>
       </header>
 
