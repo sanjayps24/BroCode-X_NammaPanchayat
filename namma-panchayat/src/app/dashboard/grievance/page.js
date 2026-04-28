@@ -1,17 +1,21 @@
 "use client";
 import React, { useState } from 'react';
 import { useLanguage } from '@/context/LanguageContext';
+import { useAuth } from '@/context/AuthContext';
 import VoiceRecorder from '@/components/VoiceRecorder';
 import ListenButton from '@/components/ListenButton';
 import Link from 'next/link';
 
 export default function GrievancePage() {
   const { t, lang } = useLanguage();
+  const { user, addComplaint } = useAuth();
   const [submitted, setSubmitted] = useState(false);
+  const [ticketId, setTicketId] = useState('');
   const [recording, setRecording] = useState(null);
   const [category, setCategory] = useState('');
   const [transcribing, setTranscribing] = useState(false);
-  const [transcript, setTranscript] = useState('');
+  const [complaintText, setComplaintText] = useState('');
+  const [userAddress, setUserAddress] = useState('');
 
   const categories = [
     { id: 'roads', label: { en: "Roads", kn: "ರಸ್ತೆಗಳು" }, icon: "🛣️", color: "#8b4513", bg: "rgba(139,69,19,0.1)" },
@@ -23,9 +27,25 @@ export default function GrievancePage() {
     setRecording(url);
     setTranscribing(true);
     setTimeout(() => {
-      setTranscript(lang === 'en' ? "The road near my house has a big pothole causing problems." : "ನನ್ನ ಮನೆ ಬಳಿ ದೊಡ್ಡ ಗುಂಡಿ ಇದ್ದು ತೊಂದರೆಯಾಗುತ್ತಿದೆ.");
+      const text = lang === 'en' ? "The road near my house has a big pothole causing problems." : "ನನ್ನ ಮನೆ ಬಳಿ ದೊಡ್ಡ ಗುಂಡಿ ಇದ್ದು ತೊಂದರೆಯಾಗುತ್ತಿದೆ.";
+      setComplaintText(text);
       setTranscribing(false);
     }, 2000);
+  };
+
+  const handleSubmit = () => {
+    const selectedCat = categories.find(c => c.id === category);
+    const newId = addComplaint({
+      user: user?.name || "Guest User",
+      phone: user?.phone || "N/A",
+      ward: user?.ward || "Unknown",
+      address: userAddress || `Ward ${user?.ward || '?'}, Hoskote, Karnataka`, 
+      category: selectedCat ? selectedCat.label.en : "General",
+      issue: complaintText,
+      priority: "High", 
+    });
+    setTicketId(newId);
+    setSubmitted(true);
   };
 
   if (submitted) {
@@ -37,7 +57,7 @@ export default function GrievancePage() {
         </h2>
         <div style={{ background: 'var(--bg-card)', border: '1px solid var(--border-color)', borderRadius: '20px', padding: '24px 32px', backdropFilter: 'blur(8px)' }}>
           <p style={{ margin: 0, color: 'var(--text-muted)', fontSize: '0.9rem' }}>{lang === 'en' ? "Your Ticket ID" : "ನಿಮ್ಮ ಟಿಕೆಟ್ ಸಂಖ್ಯೆ"}</p>
-          <h3 style={{ margin: '8px 0', color: 'var(--primary)', fontWeight: 900, fontSize: '1.6rem', letterSpacing: '2px' }}>#PAN-8824</h3>
+          <h3 style={{ margin: '8px 0', color: 'var(--primary)', fontWeight: 900, fontSize: '1.6rem', letterSpacing: '2px' }}>{ticketId}</h3>
           <p style={{ margin: 0, fontSize: '0.8rem', color: 'var(--text-muted)' }}>{lang === 'en' ? "You will be notified once the PDO reviews this." : "PDO ಪರಿಶೀಲಿಸಿದ ನಂತರ ನಿಮಗೆ ತಿಳಿಸಲಾಗುತ್ತದೆ."}</p>
         </div>
         <Link href="/dashboard" className="btn-premium btn-primary" style={{ borderRadius: '50px' }}>
@@ -86,40 +106,63 @@ export default function GrievancePage() {
         </div>
       </div>
 
-      {/* Step 2: Voice */}
-      <div style={{ background: 'var(--bg-card)', border: '1px solid var(--border-color)', borderRadius: '24px', padding: '28px', backdropFilter: 'blur(8px)', textAlign: 'center' }}>
-        <h3 style={{ margin: '0 0 28px', fontSize: '1rem', fontWeight: 700, color: 'var(--text-muted)', letterSpacing: '0.5px' }}>
-          STEP 2 · {lang === 'en' ? "RECORD YOUR COMPLAINT" : "ನಿಮ್ಮ ದೂರನ್ನು ದಾಖಲಿಸಿ"}
+      {/* Step 2: Input */}
+      <div style={{ background: 'var(--bg-card)', border: '1px solid var(--border-color)', borderRadius: '24px', padding: '28px', backdropFilter: 'blur(8px)' }}>
+        <h3 style={{ margin: '0 0 20px', fontSize: '1rem', fontWeight: 700, color: 'var(--text-muted)', letterSpacing: '0.5px' }}>
+          STEP 2 · {lang === 'en' ? "DESCRIBE YOUR PROBLEM" : "ಸಮಸ್ಯೆಯನ್ನು ವಿವರಿಸಿ"}
         </h3>
-        <VoiceRecorder onStop={handleStop} />
+        
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', alignItems: 'center' }}>
+          <div style={{ width: '100%', textAlign: 'center' }}>
+            <VoiceRecorder onStop={handleStop} />
+            {transcribing && (
+              <div style={{ marginTop: '16px', color: 'var(--primary)', fontWeight: 600, fontSize: '0.9rem' }}>
+                ✨ {lang === 'en' ? "AI is transcribing..." : "AI ಪ್ರತಿಲಿಪಿ ಮಾಡುತ್ತಿದೆ..."}
+              </div>
+            )}
+          </div>
+
+          <div style={{ width: '100%', position: 'relative' }}>
+             <div style={{ position: 'absolute', left: '16px', top: '12px', zIndex: 10 }}>
+               <ListenButton text={complaintText} />
+             </div>
+             <textarea 
+              value={complaintText}
+              onChange={(e) => setComplaintText(e.target.value)}
+              placeholder={lang === 'en' ? "Type your complaint here or use the voice recorder above..." : "ನಿಮ್ಮ ದೂರನ್ನು ಇಲ್ಲಿ ಟೈಪ್ ಮಾಡಿ ಅಥವಾ ಮೇಲಿನ ಧ್ವನಿ ರೆಕಾರ್ಡರ್ ಬಳಸಿ..."}
+              style={{
+                width: '100%', minHeight: '120px', padding: '16px 16px 16px 48px', borderRadius: '16px',
+                background: 'var(--bg-app)', border: '1px solid var(--border-color)',
+                color: 'var(--text-main)', fontFamily: 'inherit', fontSize: '0.95rem',
+                resize: 'vertical', outline: 'none', transition: 'border-color 0.2s'
+              }}
+              onFocus={(e) => e.target.style.borderColor = 'var(--primary)'}
+              onBlur={(e) => e.target.style.borderColor = 'var(--border-color)'}
+             />
+          </div>
+
+          <div style={{ width: '100%' }}>
+            <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 600, color: 'var(--text-muted)', marginBottom: '8px' }}>
+              🏠 {lang === 'en' ? "Your Address (Optional)" : "ನಿಮ್ಮ ವಿಳಾಸ (ಐಚ್ಛಿಕ)"}
+            </label>
+            <input 
+              type="text"
+              value={userAddress}
+              onChange={(e) => setUserAddress(e.target.value)}
+              placeholder={lang === 'en' ? "Share your location for faster resolution..." : "ವೇಗವಾಗಿ ಪರಿಹರಿಸಲು ನಿಮ್ಮ ಸ್ಥಳವನ್ನು ಹಂಚಿಕೊಳ್ಳಿ..."}
+              style={{
+                width: '100%', padding: '14px 18px', borderRadius: '12px',
+                background: 'var(--bg-app)', border: '1px solid var(--border-color)',
+                color: 'var(--text-main)', fontFamily: 'inherit', fontSize: '0.9rem', outline: 'none'
+              }}
+            />
+          </div>
+        </div>
       </div>
 
-      {/* Transcript */}
-      {transcribing && (
-        <div style={{ textAlign: 'center', padding: '20px', background: 'var(--primary-glow)', borderRadius: '16px', color: 'var(--primary)', fontWeight: 600 }}>
-          ✨ {lang === 'en' ? "AI is transcribing your voice..." : "AI ನಿಮ್ಮ ಧ್ವನಿಯನ್ನು ಅನುವಾದಿಸುತ್ತಿದೆ..."}
-        </div>
-      )}
-
-      {transcript && (
-        <div style={{ background: 'var(--bg-card)', border: '2px solid var(--primary)', borderRadius: '20px', padding: '24px', backdropFilter: 'blur(8px)' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px' }}>
-            <span style={{ fontSize: '1.2rem' }}>📝</span>
-            <h4 style={{ margin: 0, fontWeight: 700, fontSize: '0.9rem', color: 'var(--primary)', letterSpacing: '0.5px' }}>
-              {lang === 'en' ? "AI TRANSCRIPT" : "AI ಪ್ರತಿಲಿಪಿ"}
-            </h4>
-            <ListenButton text={transcript} />
-          </div>
-          <p style={{ margin: '0 0 16px', fontStyle: 'italic', color: 'var(--text-main)', lineHeight: 1.6 }}>"{transcript}"</p>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '10px 16px', background: 'var(--bg-app)', borderRadius: '12px', fontSize: '0.82rem', color: 'var(--text-muted)' }}>
-            📍 <span style={{ fontWeight: 600 }}>Ward 4, Hoskote · 13.0706° N, 77.7937° E</span>
-          </div>
-        </div>
-      )}
-
       {/* Submit */}
-      {recording && category && (
-        <button onClick={() => setSubmitted(true)} className="btn-premium btn-primary" style={{ width: '100%', borderRadius: '50px', padding: '18px', fontSize: '1.1rem' }}>
+      {category && complaintText && (
+        <button onClick={handleSubmit} className="btn-premium btn-primary" style={{ width: '100%', borderRadius: '50px', padding: '18px', fontSize: '1.1rem' }}>
           🚀 {lang === 'en' ? "Submit Grievance" : "ದೂರು ಸಲ್ಲಿಸಿ"}
         </button>
       )}

@@ -19,7 +19,7 @@ export default function AdminLayout({ children }) {
 
   const navItems = [
     { label: { en: "Overview", kn: "ಸ್ಥಿತಿ" }, href: "/admin", icon: "📊", exact: true },
-    { label: { en: "Tickets", kn: "ದೂರುಗಳು" }, href: "/admin/tickets", icon: "🎫" },
+    { label: { en: "Complaints", kn: "ದೂರುಗಳು" }, href: "/admin/complaints", icon: "🎫" },
     { label: { en: "Citizens", kn: "ನಾಗರಿಕರು" }, href: "/admin/citizens", icon: "👥" },
     { label: { en: "Broadcast", kn: "ಪ್ರಕಟಣೆ" }, href: "/admin/broadcast", icon: "📢" },
   ];

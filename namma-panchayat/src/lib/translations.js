@@ -38,6 +38,13 @@ export const translations = {
       ambulance: "Ambulance",
       police: "Police",
       panchayat: "Panchayat"
+    },
+    howToUse: {
+      title: "How to Use the App",
+      step1: "1. Select your preferred language using the toggle at the top.",
+      step2: "2. Login as a Citizen using your phone number or as an Official.",
+      step3: "3. Tap 'Voice Grievance' to record and report local issues easily.",
+      step4: "4. Check other tiles for school updates, mandi prices, and bills."
     }
   },
   kn: {
@@ -79,6 +86,13 @@ export const translations = {
       ambulance: "ಆಂಬ್ಯುಲೆನ್ಸ್",
       police: "ಪೊಲೀಸ್",
       panchayat: "ಪಂಚಾಯತ್"
+    },
+    howToUse: {
+      title: "ಅಪ್ಲಿಕೇಶನ್ ಬಳಸುವುದು ಹೇಗೆ",
+      step1: "1. ಮೇಲ್ಭಾಗದಲ್ಲಿರುವ ಆಯ್ಕೆಯನ್ನು ಬಳಸಿ ನಿಮ್ಮ ಭಾಷೆಯನ್ನು ಆರಿಸಿ.",
+      step2: "2. ನಿಮ್ಮ ಫೋನ್ ಸಂಖ್ಯೆಯನ್ನು ಬಳಸಿ ನಾಗರಿಕರಾಗಿ ಅಥವಾ ಅಧಿಕಾರಿಯಾಗಿ ಲಾಗಿನ್ ಮಾಡಿ.",
+      step3: "3. ಸಮಸ್ಯೆಗಳನ್ನು ವರದಿ ಮಾಡಲು 'ದೂರು ಸಲ್ಲಿಸಿ' ಗುಂಡಿಯನ್ನು ಒತ್ತಿ.",
+      step4: "4. ಶಾಲೆಗಳು, ಮಾರುಕಟ್ಟೆ ದರ ಮತ್ತು ಬಿಲ್‌ಗಳಿಗಾಗಿ ಇತರ ಆಯ್ಕೆಗಳನ್ನು ನೋಡಿ."
     }
   }
 };

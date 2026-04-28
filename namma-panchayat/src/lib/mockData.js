@@ -34,3 +34,63 @@ export const mockSchoolUpdates = [
   { id: 1, title: { en: "Roof Repair", kn: "ಛಾವಣಿ ದುರಸ್ತಿ" }, status: "In Progress", progress: 65 },
   { id: 2, title: { en: "New Toilets", kn: "ಹೊಸ ಶೌಚಾಲಯಗಳು" }, status: "Completed", progress: 100 },
 ];
+
+// Initial Village Population (Sample of 150 families / 600 people)
+// For mock purposes, we'll provide a representative sample
+export const mockCitizens = [
+  { 
+    id: "CIT-001", 
+    familyId: "FAM-01", 
+    name: "Basavaraj", 
+    dob: "1978-05-15", 
+    age: 46, 
+    gender: "Male", 
+    phone: "9876543210", 
+    isHead: true,
+    ward: "4"
+  },
+  { 
+    id: "CIT-002", 
+    familyId: "FAM-01", 
+    name: "Lakshmi", 
+    dob: "1982-08-20", 
+    age: 42, 
+    gender: "Female", 
+    phone: "9876543211", 
+    isHead: false,
+    ward: "4"
+  },
+  { 
+    id: "CIT-003", 
+    familyId: "FAM-02", 
+    name: "Gowda", 
+    dob: "1965-03-10", 
+    age: 59, 
+    gender: "Male", 
+    phone: "9876543212", 
+    isHead: true,
+    ward: "1"
+  },
+  { 
+    id: "CIT-004", 
+    familyId: "FAM-03", 
+    name: "Mala", 
+    dob: "1988-11-25", 
+    age: 36, 
+    gender: "Female", 
+    phone: "9876543214", 
+    isHead: true,
+    ward: "3"
+  },
+  { 
+    id: "CIT-005", 
+    familyId: "FAM-04", 
+    name: "Suresh", 
+    dob: "1992-01-12", 
+    age: 32, 
+    gender: "Male", 
+    phone: "9876543213", 
+    isHead: true,
+    ward: "4"
+  }
+];

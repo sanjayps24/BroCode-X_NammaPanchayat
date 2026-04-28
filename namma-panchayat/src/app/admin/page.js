@@ -2,23 +2,23 @@
 import React from 'react';
 import { useLanguage } from '@/context/LanguageContext';
 import Link from 'next/link';
+import { useAuth } from '@/context/AuthContext';
 
 export default function AdminOverview() {
   const { lang } = useLanguage();
+  const { citizens, complaints } = useAuth();
+
+  const familyHeadsCount = citizens.filter(c => c.isHead).length;
+  const uniqueFamilies = new Set(citizens.map(c => c.familyId)).size;
 
   const stats = [
-    { label: { en: "Total Tickets", kn: "ಒಟ್ಟು ದೂರುಗಳು" }, value: "124", delta: "+8 today", color: "#1976d2", bg: "rgba(25,118,210,0.08)", icon: "🎫" },
-    { label: { en: "Resolved", kn: "ಪರಿಹರಿಸಲಾಗಿದೆ" }, value: "85%", delta: "↑ 3% this week", color: "#388e3c", bg: "rgba(56,142,60,0.08)", icon: "✅" },
-    { label: { en: "Pending", kn: "ಬಾಕಿ" }, value: "18", delta: "Needs action", color: "#f57c00", bg: "rgba(245,124,0,0.08)", icon: "⏳" },
-    { label: { en: "Citizens", kn: "ನಾಗರಿಕರು" }, value: "1,240", delta: "+12 this month", color: "#7b1fa2", bg: "rgba(123,31,162,0.08)", icon: "👥" },
+    { label: { en: "Village Population", kn: "ಗ್ರಾಮದ ಜನಸಂಖ್ಯೆ" }, value: "600+", delta: "Target", color: "#1976d2", bg: "rgba(25,118,210,0.08)", icon: "👥" },
+    { label: { en: "Total Families", kn: "ಒಟ್ಟು ಕುಟುಂಬಗಳು" }, value: "150", delta: "Mapped", color: "#7b1fa2", bg: "rgba(123,31,162,0.08)", icon: "🏠" },
+    { label: { en: "Registered Heads", kn: "ನೋಂದಾಯಿತ ಮುಖ್ಯಸ್ಥರು" }, value: familyHeadsCount, delta: `${uniqueFamilies} Families`, color: "#388e3c", bg: "rgba(56,142,60,0.08)", icon: "👑" },
+    { label: { en: "Open Complaints", kn: "ಬಾಕಿ ದೂರುಗಳು" }, value: complaints.filter(c => c.status !== 'Resolved').length, delta: "Action required", color: "#f57c00", bg: "rgba(245,124,0,0.08)", icon: "⏳" },
   ];
 
-  const tickets = [
-    { id: "#PAN-8823", user: "Basavaraj", issue: "Road Pothole - Ward 4", status: "New", time: "2h ago" },
-    { id: "#PAN-8820", user: "Lakshmi", issue: "Water Pipe Leak - Ward 2", status: "In Progress", time: "5h ago" },
-    { id: "#PAN-8815", user: "Gowda", issue: "Streetlight Off - Temple Rd", status: "Resolved", time: "1d ago" },
-    { id: "#PAN-8812", user: "Suresh", issue: "Drainage Blocked - Ward 4", status: "New", time: "3h ago" },
-  ];
+  const recentComplaints = complaints.slice(0, 4);
 
   const statusStyle = (s) => ({
     padding: '4px 12px', borderRadius: '20px', fontSize: '0.72rem', fontWeight: 700,
@@ -52,25 +52,29 @@ export default function AdminOverview() {
       </div>
 
       <div style={{ display: 'grid', gridTemplateColumns: '1.6fr 1fr', gap: '20px' }}>
-        {/* Recent Tickets */}
+        {/* Recent Complaints */}
         <div style={{ ...card, padding: '24px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
             <h3 style={{ margin: 0, fontSize: '1rem', fontWeight: 700 }}>{lang === 'en' ? "Recent Grievances" : "ಇತ್ತೀಚಿನ ದೂರುಗಳು"}</h3>
-            <Link href="/admin/tickets" style={{ fontSize: '0.8rem', color: 'var(--primary)', fontWeight: 600, textDecoration: 'none' }}>
+            <Link href="/admin/complaints" style={{ fontSize: '0.8rem', color: 'var(--primary)', fontWeight: 600, textDecoration: 'none' }}>
               {lang === 'en' ? "View all →" : "ಎಲ್ಲವನ್ನೂ ನೋಡಿ →"}
             </Link>
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-            {tickets.map((t, i) => (
+            {recentComplaints.length > 0 ? recentComplaints.map((t, i) => (
               <div key={i} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '12px 16px', background: 'var(--bg-app)', borderRadius: '14px', gap: '12px' }}>
                 <div style={{ flex: 1, minWidth: 0 }}>
                   <div style={{ fontWeight: 700, fontSize: '0.8rem', color: 'var(--primary)', marginBottom: '2px' }}>{t.id}</div>
                   <div style={{ fontWeight: 500, fontSize: '0.85rem', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{t.issue}</div>
-                  <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)', marginTop: '2px' }}>by {t.user} · {t.time}</div>
+                  <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)', marginTop: '2px' }}>by {t.user} · {t.date}</div>
                 </div>
                 <span style={statusStyle(t.status)}>{t.status}</span>
               </div>
-            ))}
+            )) : (
+              <div style={{ padding: '20px', textAlign: 'center', color: 'var(--text-muted)', fontSize: '0.9rem' }}>
+                {lang === 'en' ? "No complaints yet." : "ಯಾವುದೇ ದೂರುಗಳಿಲ್ಲ."}
+              </div>
+            )}
           </div>
         </div>
 

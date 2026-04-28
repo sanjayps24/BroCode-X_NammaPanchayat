@@ -13,34 +13,26 @@ function LoginContent() {
   const initialRole = searchParams.get('role') || 'citizen';
 
   const [role, setRole] = useState(initialRole);
-  const [phone, setPhone] = useState('');
-  const [otp, setOtp] = useState('');
-  const [step, setStep] = useState(1);
+  const [name, setName] = useState('');
+  const [dob, setDob] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const handleCitizenNext = (e) => {
-    e.preventDefault();
-    setError('');
-    if (phone.length === 10) {
-      setLoading(true);
-      setTimeout(() => { setLoading(false); setStep(2); }, 1000);
-    } else {
-      setError(lang === 'en' ? 'Enter a valid 10-digit number' : '10 ಅಂಕಿಗಳ ಸಂಖ್ಯೆ ನಮೂದಿಸಿ');
-    }
-  };
-
   const handleCitizenLogin = (e) => {
     e.preventDefault();
     setError('');
-    if (otp.length === 6) {
-      setLoading(true);
-      setTimeout(() => { setLoading(false); loginAsCitizen(phone); }, 1200);
-    } else {
-      setError(lang === 'en' ? 'Enter valid 6-digit OTP' : '6 ಅಂಕಿಗಳ OTP ನಮೂದಿಸಿ');
+    if (!name || !dob) {
+      setError(lang === 'en' ? 'Please enter both Name and DOB' : 'ಹೆಸರು ಮತ್ತು ಜನ್ಮ ದಿನಾಂಕ ಎರಡನ್ನೂ ನಮೂದಿಸಿ');
+      return;
     }
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+      const res = loginAsCitizen(name, dob);
+      if (!res.success) setError(res.error);
+    }, 1200);
   };
 
   const handleAdminLogin = (e) => {
@@ -90,7 +82,7 @@ function LoginContent() {
           {/* Role Toggle Tabs */}
           <div style={{ display: 'flex', background: 'var(--bg-app)', borderRadius: '14px', padding: '4px', marginBottom: '36px', gap: '4px' }}>
             {['citizen', 'admin'].map(r => (
-              <button key={r} onClick={() => { setRole(r); setError(''); setStep(1); }} style={{
+              <button key={r} onClick={() => { setRole(r); setError(''); }} style={{
                 flex: 1, padding: '12px', borderRadius: '12px', border: 'none', cursor: 'pointer',
                 background: role === r ? 'var(--primary)' : 'transparent',
                 color: role === r ? 'white' : 'var(--text-muted)',
@@ -107,43 +99,36 @@ function LoginContent() {
           </h1>
           <p style={{ textAlign: 'center', color: 'var(--text-muted)', marginBottom: '32px', fontSize: '0.9rem' }}>
             {role === 'citizen'
-              ? (lang === 'en' ? 'Login using your mobile number' : 'ನಿಮ್ಮ ಮೊಬೈಲ್ ಸಂಖ್ಯೆ ಬಳಸಿ ಲಾಗಿನ್ ಮಾಡಿ')
+              ? (lang === 'en' ? 'Login with your registered Name & Date of Birth' : 'ನಿಮ್ಮ ನೋಂದಾಯಿತ ಹೆಸರು ಮತ್ತು ಜನ್ಮ ದಿನಾಂಕ ಬಳಸಿ ಲಾಗಿನ್ ಮಾಡಿ')
               : (lang === 'en' ? 'Panchayat Development Officers only' : 'ಪಂಚಾಯತ್ ಅಭಿವೃದ್ಧಿ ಅಧಿಕಾರಿಗಳು ಮಾತ್ರ')}
           </p>
 
           {role === 'citizen' ? (
-            <form onSubmit={step === 1 ? handleCitizenNext : handleCitizenLogin} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-              {step === 1 ? (
-                <div>
-                  <label style={{ display: 'block', marginBottom: '8px', fontWeight: 600, fontSize: '0.9rem' }}>
-                    📱 {lang === 'en' ? 'Mobile Number' : 'ಮೊಬೈಲ್ ಸಂಖ್ಯೆ'}
-                  </label>
-                  <input type="tel" placeholder="9876543210" value={phone}
-                    onChange={e => setPhone(e.target.value.replace(/\D/g, '').slice(0, 10))}
-                    style={inputStyle} autoFocus />
-                </div>
-              ) : (
-                <div>
-                  <div style={{ textAlign: 'center', padding: '12px', background: 'var(--primary-glow)', borderRadius: '12px', marginBottom: '16px', fontSize: '0.85rem', color: 'var(--primary)', fontWeight: 600 }}>
-                    {lang === 'en' ? `OTP sent to +91 ${phone}` : `+91 ${phone} ಗೆ OTP ಕಳುಹಿಸಲಾಗಿದೆ`}
-                  </div>
-                  <label style={{ display: 'block', marginBottom: '8px', fontWeight: 600, fontSize: '0.9rem' }}>
-                    🔒 {lang === 'en' ? 'Enter 6-digit OTP' : '6 ಅಂಕಿಗಳ OTP ನಮೂದಿಸಿ'}
-                  </label>
-                  <input type="text" placeholder="• • • • • •" value={otp}
-                    onChange={e => setOtp(e.target.value.replace(/\D/g, '').slice(0, 6))}
-                    style={{ ...inputStyle, textAlign: 'center', letterSpacing: '12px', fontSize: '1.4rem' }} autoFocus />
-                </div>
-              )}
+            <form onSubmit={handleCitizenLogin} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+              <div>
+                <label style={{ display: 'block', marginBottom: '8px', fontWeight: 600, fontSize: '0.9rem' }}>
+                  👤 {lang === 'en' ? 'Full Name' : 'ಪೂರ್ಣ ಹೆಸರು'}
+                </label>
+                <input type="text" placeholder="Basavaraj" value={name}
+                  onChange={e => setName(e.target.value)}
+                  style={inputStyle} autoFocus />
+              </div>
+              <div>
+                <label style={{ display: 'block', marginBottom: '8px', fontWeight: 600, fontSize: '0.9rem' }}>
+                  📅 {lang === 'en' ? 'Date of Birth' : 'ಜನ್ಮ ದಿನಾಂಕ'}
+                </label>
+                <input type="date" value={dob}
+                  onChange={e => setDob(e.target.value)}
+                  style={inputStyle} />
+                <p style={{ fontSize: '0.72rem', color: 'var(--text-muted)', marginTop: '6px' }}>
+                  {lang === 'en' ? '* Your DOB acts as your password' : '* ನಿಮ್ಮ ಜನ್ಮ ದಿನಾಂಕವೇ ನಿಮ್ಮ ಪಾಸ್‌ವರ್ಡ್'}
+                </p>
+              </div>
+              
               {error && <p style={{ color: 'var(--emergency)', fontSize: '0.85rem', textAlign: 'center' }}>{error}</p>}
               <button className="btn-premium btn-primary" style={{ width: '100%', borderRadius: '14px', marginTop: '8px', opacity: loading ? 0.7 : 1 }} disabled={loading}>
-                {loading ? '⏳ ...' : step === 1 ? (lang === 'en' ? 'Get OTP →' : 'OTP ಪಡೆಯಿರಿ →') : (lang === 'en' ? 'Login →' : 'ಲಾಗಿನ್ →')}
+                {loading ? '⏳ ...' : (lang === 'en' ? 'Login →' : 'ಲಾಗಿನ್ →')}
               </button>
-              {step === 2 && (
-                <button type="button" onClick={() => setStep(1)} style={{ background: 'none', border: 'none', color: 'var(--text-muted)', cursor: 'pointer', fontSize: '0.85rem' }}>
-                  ← {lang === 'en' ? 'Change Number' : 'ಸಂಖ್ಯೆ ಬದಲಿಸಿ'}
-                </button>
-              )}
             </form>
           ) : (
             <form onSubmit={handleAdminLogin} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>

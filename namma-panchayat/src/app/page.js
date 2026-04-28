@@ -26,7 +26,41 @@ export default function LandingPage() {
   const step = steps[current];
 
   return (
-    <div style={{ minHeight: '100vh', position: 'relative', overflow: 'hidden', background: 'var(--bg-app)' }}>
+    <div style={{ 
+      minHeight: '100vh', 
+      position: 'relative', 
+      overflow: 'hidden', 
+      background: 'var(--bg-app)',
+      color: 'var(--text-main)'
+    }}>
+      {/* Background Image with Animation */}
+      <div style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        width: '120%',
+        height: '120%',
+        backgroundImage: 'url("/karnataka_rural_digital_bg_1777382956827.png")',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        opacity: 0.15,
+        zIndex: 0,
+        animation: 'panBackground 40s linear infinite alternate',
+        pointerEvents: 'none'
+      }} />
+
+      <style jsx global>{`
+        @keyframes panBackground {
+          from { transform: translate(0, 0); }
+          to { transform: translate(-5%, -5%); }
+        }
+        @keyframes float {
+          0% { transform: translateY(0px); }
+          50% { transform: translateY(-10px); }
+          100% { transform: translateY(0px); }
+        }
+      `}</style>
+
       <LanguageToggle />
 
       {/* Background blobs */}
@@ -37,16 +71,16 @@ export default function LandingPage() {
 
         {/* Hero */}
         <header className="animate-fade-in" style={{ textAlign: 'center', marginTop: '60px', marginBottom: '60px' }}>
-          <div style={{ fontSize: '4rem', marginBottom: '16px' }}>🏛️</div>
-          <h1 style={{ fontSize: 'clamp(2rem,5vw,3.5rem)', fontWeight: 800, color: 'var(--primary)', letterSpacing: '-1px', lineHeight: 1.1 }}>
+          <div style={{ fontSize: '4rem', marginBottom: '16px', animation: 'float 4s ease-in-out infinite' }}>🏛️</div>
+          <h1 style={{ fontSize: 'clamp(2.5rem,6vw,4rem)', fontWeight: 800, color: 'var(--primary)', letterSpacing: '-1.5px', lineHeight: 1.1, textShadow: '0 2px 10px rgba(0,0,0,0.1)' }}>
             {t('appName')}
           </h1>
-          <p style={{ fontSize: 'clamp(1.1rem,3vw,1.5rem)', fontWeight: 500, color: 'var(--text-muted)', marginTop: '12px' }}>
+          <p style={{ fontSize: 'clamp(1.2rem,3.5vw,1.6rem)', fontWeight: 500, color: 'var(--text-muted)', marginTop: '16px', maxWidth: '600px', margin: '16px auto 0' }}>
             {t('tagline')}
           </p>
-          <div style={{ display: 'flex', gap: '8px', justifyContent: 'center', marginTop: '16px' }}>
-            {['Karnataka Rural Digital Hub','PWA','Bilingual'].map((tag,i) => (
-              <span key={i} style={{ background: 'var(--primary-glow)', color: 'var(--primary)', padding: '4px 14px', borderRadius: '20px', fontSize: '0.75rem', fontWeight: 700 }}>{tag}</span>
+          <div style={{ display: 'flex', gap: '10px', justifyContent: 'center', marginTop: '24px', flexWrap: 'wrap' }}>
+            {['Karnataka Rural Digital Hub','PWA','Bilingual','Offline Ready'].map((tag,i) => (
+              <span key={i} style={{ background: 'var(--primary)', color: 'white', padding: '6px 16px', borderRadius: '30px', fontSize: '0.8rem', fontWeight: 700, boxShadow: '0 4px 10px rgba(0,0,0,0.1)' }}>{tag}</span>
             ))}
           </div>
         </header>
@@ -58,7 +92,7 @@ export default function LandingPage() {
           borderRadius: '32px',
           padding: '48px 40px',
           textAlign: 'center',
-          backdropFilter: 'blur(12px)',
+          backdropFilter: 'blur(20px)',
           boxShadow: 'var(--shadow-lg)',
           marginBottom: '48px',
           minHeight: '320px',
@@ -73,29 +107,30 @@ export default function LandingPage() {
           <div style={{ position: 'absolute', inset: 0, background: step.gradient, opacity: 0.04, transition: 'background 0.8s ease', borderRadius: '32px' }} />
 
           <div style={{
-            width: '100px', height: '100px', borderRadius: '50%',
+            width: '120px', height: '120px', borderRadius: '50%',
             background: step.gradient,
             display: 'flex', alignItems: 'center', justifyContent: 'center',
-            fontSize: '3.5rem', marginBottom: '28px',
-            boxShadow: '0 8px 30px rgba(0,0,0,0.2)',
-            transition: 'background 0.5s ease'
+            fontSize: '4rem', marginBottom: '32px',
+            boxShadow: '0 12px 40px rgba(0,0,0,0.2)',
+            transition: 'background 0.5s ease',
+            animation: 'float 5s ease-in-out infinite'
           }}>
             {step.icon}
           </div>
-          <h2 style={{ fontSize: '1.6rem', fontWeight: 700, marginBottom: '12px', color: 'var(--text-main)' }}>
+          <h2 style={{ fontSize: '1.8rem', fontWeight: 700, marginBottom: '16px', color: 'var(--text-main)' }}>
             {t(`${step.key}.title`)}
           </h2>
-          <p style={{ fontSize: '1.1rem', color: 'var(--text-muted)', maxWidth: '460px' }}>
+          <p style={{ fontSize: '1.2rem', color: 'var(--text-muted)', maxWidth: '500px', lineHeight: 1.6 }}>
             {t(`${step.key}.desc`)}
           </p>
 
           {/* Dot nav */}
-          <div style={{ display: 'flex', gap: '10px', marginTop: '32px' }}>
+          <div style={{ display: 'flex', gap: '12px', marginTop: '40px' }}>
             {steps.map((_, i) => (
               <button key={i} onClick={() => setCurrent(i)} style={{
-                width: i === current ? '28px' : '10px',
-                height: '10px',
-                borderRadius: '5px',
+                width: i === current ? '32px' : '12px',
+                height: '12px',
+                borderRadius: '6px',
                 background: i === current ? 'var(--primary)' : 'var(--border-color)',
                 border: 'none', cursor: 'pointer',
                 transition: 'all 0.3s ease'
@@ -106,23 +141,54 @@ export default function LandingPage() {
 
         {/* CTA Buttons */}
         <div className="animate-fade-in delay-2" style={{ display: 'flex', gap: '20px', flexWrap: 'wrap', justifyContent: 'center' }}>
-          <Link href="/login?role=citizen" className="btn-premium btn-primary" style={{ minWidth: '220px', borderRadius: '50px', fontSize: '1.1rem' }}>
+          <Link href="/login?role=citizen" className="btn-premium btn-primary" style={{ minWidth: '240px', borderRadius: '50px', fontSize: '1.2rem', padding: '18px 32px' }}>
             👤 {t('citizenLogin')}
           </Link>
           <Link href="/login?role=admin" style={{
-            minWidth: '220px', borderRadius: '50px', fontSize: '1.1rem',
-            padding: '14px 28px', fontWeight: 600,
-            border: '2px solid var(--primary)', color: 'var(--primary)',
-            background: 'transparent', cursor: 'pointer',
+            minWidth: '240px', borderRadius: '50px', fontSize: '1.2rem',
+            padding: '18px 32px', fontWeight: 600,
+            border: '3px solid var(--primary)', color: 'var(--primary)',
+            background: 'var(--bg-card)', cursor: 'pointer',
             display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '10px',
-            transition: 'all 0.3s ease', textDecoration: 'none'
+            transition: 'all 0.3s ease', textDecoration: 'none',
+            backdropFilter: 'blur(10px)'
           }}>
             🏛️ {t('officialLogin')}
           </Link>
         </div>
 
+        {/* How to Use Section */}
+        <section className="animate-fade-in delay-3" style={{
+          marginTop: '80px',
+          padding: '48px',
+          background: 'var(--bg-card)',
+          borderRadius: '32px',
+          border: '1px solid var(--border-color)',
+          backdropFilter: 'blur(20px)',
+          boxShadow: 'var(--shadow-md)'
+        }}>
+          <h2 style={{ fontSize: '2rem', fontWeight: 800, marginBottom: '32px', textAlign: 'center', color: 'var(--primary)' }}>
+            📖 {t('howToUse.title')}
+          </h2>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '24px' }}>
+            {[1, 2, 3, 4].map((stepNum) => (
+              <div key={stepNum} style={{
+                padding: '24px',
+                background: 'var(--bg-app)',
+                borderRadius: '20px',
+                border: '1px solid var(--border-color)',
+                transition: 'transform 0.3s ease'
+              }}>
+                <p style={{ fontSize: '1.05rem', fontWeight: 500, lineHeight: 1.6, color: 'var(--text-main)' }}>
+                  {t(`howToUse.step${stepNum}`)}
+                </p>
+              </div>
+            ))}
+          </div>
+        </section>
+
         {/* Features row */}
-        <div className="animate-fade-in delay-3" style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: '16px', marginTop: '60px' }}>
+        <div className="animate-fade-in delay-3" style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: '20px', marginTop: '60px' }}>
           {[
             { icon: '🌐', label: lang === 'en' ? 'Fully Bilingual' : 'ಸಂಪೂರ್ಣ ದ್ವಿಭಾಷಾ' },
             { icon: '🔊', label: lang === 'en' ? 'Voice Enabled' : 'ಧ್ವನಿ ಸಕ್ರಿಯ' },
@@ -130,16 +196,17 @@ export default function LandingPage() {
           ].map((f, i) => (
             <div key={i} style={{
               background: 'var(--bg-card)', border: '1px solid var(--border-color)',
-              borderRadius: '16px', padding: '20px', textAlign: 'center',
-              backdropFilter: 'blur(8px)'
+              borderRadius: '20px', padding: '24px', textAlign: 'center',
+              backdropFilter: 'blur(12px)',
+              boxShadow: 'var(--shadow-sm)'
             }}>
-              <div style={{ fontSize: '2rem', marginBottom: '8px' }}>{f.icon}</div>
-              <div style={{ fontWeight: 600, fontSize: '0.9rem', color: 'var(--text-main)' }}>{f.label}</div>
+              <div style={{ fontSize: '2.5rem', marginBottom: '12px' }}>{f.icon}</div>
+              <div style={{ fontWeight: 700, fontSize: '1rem', color: 'var(--text-main)' }}>{f.label}</div>
             </div>
           ))}
         </div>
 
-        <footer style={{ textAlign: 'center', marginTop: '60px', color: 'var(--text-muted)', fontSize: '0.8rem' }}>
+        <footer style={{ textAlign: 'center', marginTop: '80px', color: 'var(--text-muted)', fontSize: '0.9rem', fontWeight: 500 }}>
           © 2026 {t('appName')} · BroCode-X Team · Karnataka Digital Mission
         </footer>
       </main>
