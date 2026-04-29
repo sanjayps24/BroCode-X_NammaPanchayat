@@ -47,18 +47,12 @@ export const mockCitizens = [
     gender: "Male", 
     phone: "9876543210", 
     isHead: true,
-    ward: "4"
-  },
-  { 
-    id: "CIT-002", 
-    familyId: "FAM-01", 
-    name: "Lakshmi", 
-    dob: "1982-08-20", 
-    age: 42, 
-    gender: "Female", 
-    phone: "9876543211", 
-    isHead: false,
-    ward: "4"
+    ward: "4",
+    familyMembers: [
+      { name: "Lakshmi", relationship: "Wife", age: 42, gender: "Female" },
+      { name: "Aditya", relationship: "Son", age: 18, gender: "Male" },
+      { name: "Megha", relationship: "Daughter", age: 14, gender: "Female" }
+    ]
   },
   { 
     id: "CIT-003", 
@@ -69,7 +63,11 @@ export const mockCitizens = [
     gender: "Male", 
     phone: "9876543212", 
     isHead: true,
-    ward: "1"
+    ward: "1",
+    familyMembers: [
+      { name: "Savitha", relationship: "Wife", age: 54, gender: "Female" },
+      { name: "Puneeth", relationship: "Son", age: 28, gender: "Male" }
+    ]
   },
   { 
     id: "CIT-004", 
@@ -80,7 +78,11 @@ export const mockCitizens = [
     gender: "Female", 
     phone: "9876543214", 
     isHead: true,
-    ward: "3"
+    ward: "3",
+    familyMembers: [
+      { name: "Ramesh", relationship: "Husband", age: 40, gender: "Male" },
+      { name: "Kiran", relationship: "Son", age: 8, gender: "Male" }
+    ]
   },
   { 
     id: "CIT-005", 
@@ -91,6 +93,10 @@ export const mockCitizens = [
     gender: "Male", 
     phone: "9876543213", 
     isHead: true,
-    ward: "4"
+    ward: "4",
+    familyMembers: [
+      { name: "Roopa", relationship: "Wife", age: 29, gender: "Female" },
+      { name: "Ananya", relationship: "Daughter", age: 3, gender: "Female" }
+    ]
   }
 ];
