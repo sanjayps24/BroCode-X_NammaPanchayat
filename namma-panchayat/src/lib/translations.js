@@ -28,7 +28,7 @@ export const translations = {
     dashboard: {
       welcome: "Welcome to",
       education: "Namma Shale",
-      utilities: "Bill Pay",
+      farmers: "Krishi Abhivrudhi",
       grievance: "Voice Grievance",
       prosperity: "Agriculture & Jobs",
       welfare: "Schemes",
@@ -41,10 +41,11 @@ export const translations = {
     },
     howToUse: {
       title: "How to Use the App",
-      step1: "1. Select your preferred language using the toggle at the top.",
-      step2: "2. Login as a Citizen using your phone number or as an Official.",
-      step3: "3. Tap 'Voice Grievance' to record and report local issues easily.",
-      step4: "4. Check other tiles for school updates, mandi prices, and bills."
+      step1: "1. Choose Your Role: Select Citizen or Official login from the home screen.",
+      step2: "2. Secure Access: Login using your credentials to enter the main dashboard.",
+      step3: "3. Access Features: Explore Namma Shale, Mandi Prices, and Utilities through interactive tiles.",
+      step4: "4. Mega Schemes: Open the Schemes section to view and apply for the Five Guarantees.",
+      step5: "5. One-Touch Help: Use the Suraksha page for instant access to emergency services."
     }
   },
   kn: {
@@ -76,7 +77,7 @@ export const translations = {
     dashboard: {
       welcome: "ಸ್ವಾಗತ",
       education: "ನಮ್ಮ ಶಾಲೆ",
-      utilities: "ಬಿಲ್ ಪಾವತಿ",
+      farmers: "ಕೃಷಿ ಅಭಿವೃದ್ಧಿ",
       grievance: "ದೂರು ಸಲ್ಲಿಸಿ",
       prosperity: "ಕೃಷಿ ಮತ್ತು ಉದ್ಯೋಗ",
       welfare: "ಯೋಜನೆಗಳು",
@@ -89,10 +90,11 @@ export const translations = {
     },
     howToUse: {
       title: "ಅಪ್ಲಿಕೇಶನ್ ಬಳಸುವುದು ಹೇಗೆ",
-      step1: "1. ಮೇಲ್ಭಾಗದಲ್ಲಿರುವ ಆಯ್ಕೆಯನ್ನು ಬಳಸಿ ನಿಮ್ಮ ಭಾಷೆಯನ್ನು ಆರಿಸಿ.",
-      step2: "2. ನಿಮ್ಮ ಫೋನ್ ಸಂಖ್ಯೆಯನ್ನು ಬಳಸಿ ನಾಗರಿಕರಾಗಿ ಅಥವಾ ಅಧಿಕಾರಿಯಾಗಿ ಲಾಗಿನ್ ಮಾಡಿ.",
-      step3: "3. ಸಮಸ್ಯೆಗಳನ್ನು ವರದಿ ಮಾಡಲು 'ದೂರು ಸಲ್ಲಿಸಿ' ಗುಂಡಿಯನ್ನು ಒತ್ತಿ.",
-      step4: "4. ಶಾಲೆಗಳು, ಮಾರುಕಟ್ಟೆ ದರ ಮತ್ತು ಬಿಲ್‌ಗಳಿಗಾಗಿ ಇತರ ಆಯ್ಕೆಗಳನ್ನು ನೋಡಿ."
+      step1: "1. ಪಾತ್ರವನ್ನು ಆರಿಸಿ: ಮುಖಪುಟದಿಂದ ನಾಗರಿಕರ ಅಥವಾ ಅಧಿಕಾರಿಯ ಲಾಗಿನ್ ಆಯ್ಕೆಮಾಡಿ.",
+      step2: "2. ಸುರಕ್ಷಿತ ಪ್ರವೇಶ: ನಿಮ್ಮ ಡ್ಯಾಶ್‌ಬೋರ್ಡ್ ಪ್ರವೇಶಿಸಲು ಲಾಗಿನ್ ವಿವರಗಳನ್ನು ಬಳಸಿ.",
+      step3: "3. ವೈಶಿಷ್ಟ್ಯಗಳನ್ನು ಬಳಸಿ: ಶಿಕ್ಷಣ, ಮಾರುಕಟ್ಟೆ ದರ ಮತ್ತು ಬಿಲ್‌ಗಳನ್ನು ಐಕಾನ್‌ಗಳ ಮೂಲಕ ನೋಡಿ.",
+      step4: "4. ಮೆಗಾ ಯೋಜನೆಗಳು: 5 ಗ್ಯಾರಂಟಿಗಳನ್ನು ವೀಕ್ಷಿಸಲು ಮತ್ತು ಅರ್ಜಿ ಸಲ್ಲಿಸಲು 'ಯೋಜನೆಗಳು' ವಿಭಾಗಕ್ಕೆ ಹೋಗಿ.",
+      step5: "5. ತಕ್ಷಣದ ಸಹಾಯ: ತುರ್ತು ಸೇವೆಗಳಿಗಾಗಿ ಸುರಕ್ಷಾ ಪುಟವನ್ನು ಬಳಸಿ."
     }
   }
 };

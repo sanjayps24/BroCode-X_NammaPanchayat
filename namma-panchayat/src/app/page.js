@@ -33,26 +33,40 @@ export default function LandingPage() {
       background: 'var(--bg-app)',
       color: 'var(--text-main)'
     }}>
-      {/* Background Image with Animation */}
+      {/* Premium Nature Background with Subtle Animation */}
       <div style={{
         position: 'fixed',
         top: 0,
         left: 0,
-        width: '120%',
-        height: '120%',
-        backgroundImage: 'url("/karnataka_rural_digital_bg_1777382956827.png")',
+        width: '110%',
+        height: '110%',
+        backgroundImage: 'url("/lush_nature_bg.png")',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
-        opacity: 0.15,
+        opacity: 0.5,
         zIndex: 0,
-        animation: 'panBackground 40s linear infinite alternate',
+        filter: 'contrast(1.1) brightness(1)',
+        animation: 'natureMotion 60s ease-in-out infinite alternate',
+        pointerEvents: 'none'
+      }} />
+
+      {/* Subtle overlay to ensure text contrast */}
+      <div style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%',
+        background: 'linear-gradient(to bottom, rgba(253,250,245,0.4), rgba(253,250,245,0.1))',
+        zIndex: 0,
         pointerEvents: 'none'
       }} />
 
       <style jsx global>{`
-        @keyframes panBackground {
-          from { transform: translate(0, 0); }
-          to { transform: translate(-5%, -5%); }
+        @keyframes natureMotion {
+          0% { transform: scale(1) translate(0, 0); }
+          50% { transform: scale(1.05) translate(-2%, -2%); }
+          100% { transform: scale(1) translate(0, 0); }
         }
         @keyframes float {
           0% { transform: translateY(0px); }
@@ -171,7 +185,7 @@ export default function LandingPage() {
             📖 {t('howToUse.title')}
           </h2>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '24px' }}>
-            {[1, 2, 3, 4].map((stepNum) => (
+            {[1, 2, 3, 4, 5].map((stepNum) => (
               <div key={stepNum} style={{
                 padding: '24px',
                 background: 'var(--bg-app)',

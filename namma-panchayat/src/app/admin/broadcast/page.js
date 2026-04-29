@@ -12,17 +12,28 @@ export default function AdminBroadcast() {
 
   const handleSend = (e) => {
     e.preventDefault();
+    if (!message && activeTab === 'text') return;
+    
+    // Persist for User Dashboard
+    const broadcastData = {
+      message: activeTab === 'text' ? message : (lang === 'en' ? 'New Voice Alert' : 'ಹೊಸ ಧ್ವನಿ ಅಲರ್ಟ್'),
+      type: activeTab,
+      timestamp: new Date().toISOString(),
+      sender: 'Panchayat Admin'
+    };
+    localStorage.setItem('village_broadcast', JSON.stringify(broadcastData));
+
     setSent(true);
     setTimeout(() => { setSent(false); setMessage(''); }, 4000);
   };
 
   const targets = [
-    { value: 'all', label: { en: 'All Citizens (1,240)', kn: 'ಎಲ್ಲಾ ನಾಗರಿಕರು (1,240)' } },
-    { value: 'ward1', label: { en: 'Ward 1 (312)', kn: 'ವಾರ್ಡ್ 1 (312)' } },
-    { value: 'ward2', label: { en: 'Ward 2 (298)', kn: 'ವಾರ್ಡ್ 2 (298)' } },
-    { value: 'ward3', label: { en: 'Ward 3 (322)', kn: 'ವಾರ್ಡ್ 3 (322)' } },
-    { value: 'ward4', label: { en: 'Ward 4 (308)', kn: 'ವಾರ್ಡ್ 4 (308)' } },
-    { value: 'farmers', label: { en: 'Farmers (480)', kn: 'ರೈತರು (480)' } },
+    { value: 'all', label: { en: 'All Citizens (700)', kn: 'ಎಲ್ಲಾ ನಾಗರಿಕರು (700)' } },
+    { value: 'ward1', label: { en: 'Ward 1 (150)', kn: 'ವಾರ್ಡ್ 1 (150)' } },
+    { value: 'ward2', label: { en: 'Ward 2 (175)', kn: 'ವಾರ್ಡ್ 2 (175)' } },
+    { value: 'ward3', label: { en: 'Ward 3 (150)', kn: 'ವಾರ್ಡ್ 3 (150)' } },
+    { value: 'ward4', label: { en: 'Ward 4 (200)', kn: 'ವಾರ್ಡ್ 4 (200)' } },
+    { value: 'farmers', label: { en: 'Farmers (150)', kn: 'ರೈತರು (150)' } },
   ];
 
   const card = { background: 'var(--bg-card)', border: '1px solid var(--border-color)', borderRadius: '24px', backdropFilter: 'blur(8px)', padding: '28px' };
@@ -87,7 +98,7 @@ export default function AdminBroadcast() {
 
         {sent ? (
           <div style={{ padding: '18px', background: 'rgba(56,142,60,0.1)', borderRadius: '16px', color: '#388e3c', fontWeight: 700, textAlign: 'center', fontSize: '1rem' }}>
-            ✅ {lang === 'en' ? 'Broadcast sent to 1,240 citizens!' : '1,240 ನಾಗರಿಕರಿಗೆ ಪ್ರಕಟಣೆ ಕಳುಹಿಸಲಾಗಿದೆ!'}
+            ✅ {lang === 'en' ? 'Broadcast sent to 700 citizens!' : '700 ನಾಗರಿಕರಿಗೆ ಪ್ರಕಟಣೆ ಕಳುಹಿಸಲಾಗಿದೆ!'}
           </div>
         ) : (
           <button onClick={handleSend} className="btn-premium btn-primary" style={{ width: '100%', borderRadius: '50px', padding: '18px', fontSize: '1rem' }}>
